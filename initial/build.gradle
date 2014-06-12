@@ -2,6 +2,7 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
+        maven { url "http://repo.spring.io/libs-snapshot" }
         maven { url "http://repo.spring.io/libs-release" }
     }
     dependencies {
@@ -13,6 +14,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+
+ext {
+    springVersion  = "4.1.0.BUILD-SNAPSHOT"
+    jcacheVersion  = "1.0.0"
+}
 
 jar {
     baseName = 'gs-caching'
@@ -27,7 +33,9 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
-    compile("org.springframework:spring-context")
+    compile("org.springframework:spring-context:${springVersion}")
+    compile("org.springframework:spring-context-support:${springVersion}")
+    compile("javax.cache:cache-api:${jcacheVersion}")
 }
 
 task wrapper(type: Wrapper) {
